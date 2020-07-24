@@ -90,8 +90,17 @@ public class GuessingGame
         }
         else if(response.toLowerCase().equals("n") || response.toLowerCase().equals("no"))
         {
-          current = current.getNoNode();
-          return;
+          if(current.getNoNode() != null)
+          {
+            current = current.getNoNode();
+            return;
+          }
+          else //end of tree --> computer loses
+          {
+            this.gameOver = true;
+            addClue2();
+            return;
+          }
         }
         else
         {
@@ -163,6 +172,22 @@ public class GuessingGame
     GGNode noob = new GGNode(item);
     current.setLeadingQuestion(ques);
     current.setYesNode(noob);
+  }
+
+  public void addClue2()
+  {
+    Scanner input = new Scanner(System.in);
+    System.out.println("I give up!\nWhat were you thinking of?");
+    String item = input.nextLine();
+    // System.out.println("Please enter a yes or no question that can be answered with yes for " + item
+    // + " and no for " + current.getItem() + ".");
+    // String ques = input.nextLine();
+    System.out.println("Thanks for teaching me.");
+
+    // Create the new Node and point
+    GGNode noob = new GGNode(item);
+    // noob.setLeadingQuestion(ques);
+    current.setNoNode(noob);
   }
 
 
