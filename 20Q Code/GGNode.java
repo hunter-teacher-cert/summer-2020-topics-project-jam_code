@@ -1,4 +1,6 @@
-public class GGNode
+import java.util.*;
+import java.io.*;
+public class GGNode implements Serializable
 {
   private String item;
   private String leadingQuestion;

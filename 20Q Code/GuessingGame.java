@@ -1,7 +1,7 @@
 import java.util.*;
 import java.io.*;
 
-public class GuessingGame
+public class GuessingGame implements Serializable
 {
   /** instance variables **/
   private GGNode firstQuestion;
@@ -116,6 +116,7 @@ public class GuessingGame
 
 
   }
+
 
   /*
   ** Populates the Guessing Game with a linked list of animals.
