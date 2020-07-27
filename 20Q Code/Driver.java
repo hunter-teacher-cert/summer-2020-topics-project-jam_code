@@ -12,11 +12,10 @@ public class Driver
 
     while(true)
     {
-
+      System.out.println("Think of an animal.  I will try to guess it.")
       while(!animals.gameOver())
       {
-
-        animals.nextQuestion();
+        animals.nextQuestion(); //Ask leading question
         if(!animals.gameOver())
           animals.makeGuess();  //Ask is it  _____ animal?
 
