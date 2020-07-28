@@ -2,38 +2,38 @@ import java.util.*;
 import java.io.*;
 public class GGNode implements Serializable
 {
-  private String item;
+  private String noun;
   private String leadingQuestion;
   private GGNode yesNode; //pointer to the yes node
   private GGNode noNode; //pointer to the no node
 
   public GGNode()
   {
-    this.item = "";
+    this.noun = "";
     this.leadingQuestion = "";
     this.yesNode = null;
     this.noNode = null;
   }
 
-  public GGNode(String item)
+  public GGNode(String noun)
   {
-    this.item = item;
+    this.noun = noun;
     this.leadingQuestion = null;
     this.yesNode = null;
     this.noNode = null;
   }
 
-  public GGNode(String item, String leadingQuestion, GGNode yesNode, GGNode noNode)
+  public GGNode(String noun, String leadingQuestion, GGNode yesNode, GGNode noNode)
   {
-    this.item = item;
+    this.noun = noun;
     this.leadingQuestion = leadingQuestion;
     this.yesNode = yesNode;
     this.noNode = noNode;
   }
 
-  public String getItem()
+  public String getNoun()
   {
-    return this.item;
+    return this.noun;
   }
 
   public String getLeadingQuestion()

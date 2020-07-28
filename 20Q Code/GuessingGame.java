@@ -40,7 +40,7 @@ public class GuessingGame implements Serializable
   }
 
   /*
-  ** Game guesses and asks player if the game guessed correctly.
+  ** Game guesses the noun and asks player if the game guessed correctly.
   ** Updates gameOver to true if computer wins.
   */
   public void makeGuess()
@@ -48,7 +48,7 @@ public class GuessingGame implements Serializable
     while(true) //Loop until y or n response
     {
       Scanner input = new Scanner(System.in);
-      System.out.println("Are you thinking of " + current.getItem() + "?");
+      System.out.println("Are you thinking of " + current.getNoun() + "?");
       String response = input.nextLine();
       if(response.toLowerCase().equals("y") || response.toLowerCase().equals("yes"))
       {
@@ -58,7 +58,7 @@ public class GuessingGame implements Serializable
       }
       else if(response.toLowerCase().equals("n") || response.toLowerCase().equals("no"))
       {
-        return;
+        return; //Do nothing.
       }
       else
       {
@@ -78,16 +78,28 @@ public class GuessingGame implements Serializable
     // You can only ask a question if it exists!
     if(current.getLeadingQuestion() != null)
     {
-      while(true) //Loop until y or n response
+      while(true) //Loop until valid y or n response
       {
         Scanner input = new Scanner(System.in);
         System.out.println(current.getLeadingQuestion());
         String response = input.nextLine();
+        /**Follow the "yes" branch**/
         if(response.toLowerCase().equals("y") || response.toLowerCase().equals("yes"))
         {
-          current = current.getYesNode();
-          return;
-        }
+          if(current.getYesNode() != null)
+          {
+            current = current.getYesNode();
+            return;
+          }
+          else //end of tree --> computer loses
+          {
+            this.gameOver = true;
+            addYesNode();
+            return;
+          }
+        } //end of "yes" route
+
+        /**Follow the "no" branch**/
         else if(response.toLowerCase().equals("n") || response.toLowerCase().equals("no"))
         {
           if(current.getNoNode() != null)
@@ -98,24 +110,44 @@ public class GuessingGame implements Serializable
           else //end of tree --> computer loses
           {
             this.gameOver = true;
-            addClue2();
+            addNoNode();
             return;
           }
-        }
-        else
+        } //end of "no" route
+        else //User did not enter y or n. Print message and loop again.
         {
           System.out.println("Invalid Response.");
         }
-      }//end while
+      }//end while valid response
     }// End if(question exists)
-    else
+    else  //Question does not exist so the game is over.
     {
       this.gameOver = true;
-      addClue();
+      addYesNode();
     }
+  }// end nextQuestion()
 
+  public void gameSeed()
+  {
+    //Prompt user for a category
+    System.out.print("Enter a category: ");
+    Scanner input = new Scanner(System.in);
+    String category = input.nextLine();
 
-  }
+    //Establish the category
+    GGNode start = new GGNode(category);
+    start.setLeadingQuestion("Is it a member of the " + category + " category?");
+
+    //Create one noun within the given category
+    System.out.print("Enter a noun that falls under the " + category + " category: ");
+    String member = input.nextLine();
+    GGNode next = new GGNode(member);
+    start.setYesNode(next);
+
+    //Point first question starts to user defined category
+    firstQuestion = start;
+    current = start;
+  }// end gameSeed()
 
 
   /*
@@ -123,7 +155,7 @@ public class GuessingGame implements Serializable
   */
   public void animalSeed()
   {
-
+    GGNode g0 = new GGNode("START");
     GGNode g1 = new GGNode("cow");
     GGNode g2 = new GGNode("chicken");
     GGNode g3 = new GGNode("cat");
@@ -131,6 +163,9 @@ public class GuessingGame implements Serializable
     GGNode g5 = new GGNode("duck");
     GGNode g6 = new GGNode("dog");
     GGNode g7 = new GGNode("mouse");
+
+    g0.setLeadingQuestion("Is it an animal?");
+    g0.setYesNode(g1);
 
     g1.setLeadingQuestion("Is it a farm animal?");
     g1.setYesNode(g2);
@@ -144,8 +179,8 @@ public class GuessingGame implements Serializable
     g3.setYesNode(g6);
     g3.setNoNode(g7);
 
-    firstQuestion = g1;
-    current = g1;
+    firstQuestion = g0;
+    current = g0;
   }
 
   /*
@@ -159,35 +194,39 @@ public class GuessingGame implements Serializable
     return current.getYesNode() == null && current.getNoNode() == null;
   }
 
-  public void addClue()
+  /*
+  ** This method is called when the yes pointer is null.
+  ** Add a Node after the game is lost.
+  */
+  public void addYesNode()
   {
     Scanner input = new Scanner(System.in);
-    System.out.println("I give up!\nWhat were you thinking of?");
-    String item = input.nextLine();
-    System.out.println("Please enter a yes or no question that can be answered with yes for " + item
-    + " and no for " + current.getItem() + ".");
+    System.out.println("I give up!\nWhat noun were you thinking of?");
+    String noun = input.nextLine();
+    System.out.println("Please enter a yes or no question that can be answered with yes for " + noun
+    + " and no for " + current.getNoun() + ".");
     String ques = input.nextLine();
     System.out.println("Thanks for teaching me.");
 
     // Create the new Node and point
-    GGNode noob = new GGNode(item);
+    GGNode noob = new GGNode(noun);
     current.setLeadingQuestion(ques);
     current.setYesNode(noob);
   }
 
-  public void addClue2()
+  /*
+  ** This method is called when the no pointer is null.
+  ** Add a Node after the game is lost.
+  */
+  public void addNoNode()
   {
     Scanner input = new Scanner(System.in);
-    System.out.println("I give up!\nWhat were you thinking of?");
-    String item = input.nextLine();
-    // System.out.println("Please enter a yes or no question that can be answered with yes for " + item
-    // + " and no for " + current.getItem() + ".");
-    // String ques = input.nextLine();
+    System.out.println("I give up!\nWhat noun were you thinking of?");
+    String noun = input.nextLine();
     System.out.println("Thanks for teaching me.");
 
-    // Create the new Node and point
-    GGNode noob = new GGNode(item);
-    // noob.setLeadingQuestion(ques);
+    // Create the new GGNode and point the current GGNode to it.
+    GGNode noob = new GGNode(noun);
     current.setNoNode(noob);
   }
 

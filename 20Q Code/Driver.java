@@ -6,18 +6,17 @@ public class Driver
   public static void main(String[] args)
   {
 
-    GuessingGame animals = new GuessingGame();
-    animals = getSavedTree();  //deserialize
-    animals.restart();
+    GuessingGame game = pickGame();
+    game.restart();
 
     while(true)
     {
-      System.out.println("Think of an animal.  I will try to guess it.");
-      while(!animals.gameOver())
+      System.out.println("Think of a noun.  I will try to guess it.");
+      while(!game.gameOver())
       {
-        animals.nextQuestion(); //Ask leading question
-        if(!animals.gameOver())
-          animals.makeGuess();  //Ask is it  _____ animal?
+        game.nextQuestion(); //Ask leading question
+        if(!game.gameOver())
+          game.makeGuess();  //Ask is it  _____ ?
 
       }
 
@@ -27,10 +26,10 @@ public class Driver
         break;
 
       //Set up for the next round
-      animals.restart();
+      game.restart();
     }// end loop that plays each round of Game
 
-    saveTree(animals);  //serialize
+    saveTree(game);  //serialize
   }//end main
 
   public static void saveTree(GuessingGame obj)
@@ -59,10 +58,39 @@ public class Driver
             in.close();
             return obj;
         } catch (Exception ex) {  //
-          GuessingGame animals = new GuessingGame();
-          animals.animalSeed();
-          return animals;
-          // ex.printStackTrace();
+          GuessingGame game = new GuessingGame();
+          game.gameSeed();
+          return game;
         }
     }//end getSavedTree
+
+
+  public static GuessingGame pickGame()
+  {
+    System.out.println("Enter 1 to start with your last saved game.\nEnter 2 to create your own game from scratch.\nEnter 3 for the pre-seeded animal game.");
+    Scanner input = new Scanner(System.in);
+    String response = input.nextLine();
+    while(!(response.equals("1") || response.equals("2") || response.equals("3")))
+    {
+      System.out.println("Invalid response.");
+      System.out.println("Enter 1 to start with your last saved game.\nEnter 2 to create your own game from scratch.\nEnter 3 for the pre-seeded animal game.");
+      response = input.nextLine();
+    }
+    if(response.equals("1"))
+      return getSavedTree();
+    else if(response.equals("2"))
+    {
+      GuessingGame g = new GuessingGame();
+      g.gameSeed();
+      return g;
+    }
+    else
+    {
+      GuessingGame g = new GuessingGame();
+      g.animalSeed();
+      return g;
+    }
+
+
+  }
 }
