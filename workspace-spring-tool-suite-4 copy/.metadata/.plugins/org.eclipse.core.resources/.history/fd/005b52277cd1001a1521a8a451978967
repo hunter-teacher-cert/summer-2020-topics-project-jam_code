@@ -1,0 +1,49 @@
+package com.example.demo;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
+public class Student {
+	
+	
+	@Id		
+	private int sid;						//instance variables for Student class (student ID,
+	private int gid;						//grade level, first and last names.
+	private String fname;
+	private String lname;
+	
+	
+	public int getSid() {					//get method for student ID
+		return sid;
+	}
+	public void setSid(int sid) {			//set method for student ID
+		this.sid = sid;
+	}
+	public int getGid() {					//get method for grade level
+		return gid;
+	}
+	public void setGid(int gid) {			//set method for grade level
+		this.gid = gid;
+	}
+	public String getFname() {				//get method for student first name 
+		return fname;
+	}
+	public void setFname(String fname) {	//set method for student first name
+		this.fname = fname;
+	}
+	public String getLname() {				//get method for student last name 
+		return lname;
+	}
+	public void setLname(String lname) {	//set method for student last name 
+		this.lname = lname;
+	}
+	
+//	@Override
+//	public String toString() {				
+//		
+//		return "Student [sid=" + sid + ", gid=" + gid + ", fname=" + fname + ", lname=" + lname + "]";
+//	}
+	
+} //end Student Class
+

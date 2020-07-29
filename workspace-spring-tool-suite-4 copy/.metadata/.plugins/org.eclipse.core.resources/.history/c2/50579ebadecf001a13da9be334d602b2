@@ -1,0 +1,33 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<meta charset="UTF-8">
+<title>Nacent ML</title>
+</head>
+
+
+<body>
+
+<h1>I love Java</h1>
+<h3>Do you?</h3>
+
+<form method = "post" action = "details">
+  <label for="fname">First name:</label><br>
+  <input type="text" id="fname" name="fname"><br>
+  <label for="lname">Last name:</label><br>
+  <input type="text" id="lname" name="lname">
+</form>
+
+<p> Hello, ${obj.aid} ${obj.aname} ${obj.lang}</p>
+
+</body>
+</html>
+
+
+<!-- localhost:8080/home -->

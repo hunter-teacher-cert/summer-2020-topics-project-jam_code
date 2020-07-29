@@ -1,0 +1,134 @@
+package com.example.demo;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+//import org.springframework.web.bind.annotation.ResponseBody;
+
+@Controller
+public class HomeController {
+	
+	@Autowired
+	StudentRepo repo;
+	
+	//@ResponseBody
+	
+	@RequestMapping("/")
+	public String home() {
+		
+		return "home";
+	} 
+	
+	@RequestMapping("/details")
+	public String details(Student student) {
+		
+		repo.save(student);
+		return "home";
+	} 
+	
+	@RequestMapping("/getdetails")
+	public String getdetails() {
+		
+		return "answers";
+	} 
+	
+//	@GetMapping("home")                        //used this code pre-database integration
+//	public ModelAndView home(Student alien) {
+//		
+//		ModelAndView mv = new ModelAndView();
+//		mv.addObject("obj", alien);
+//		mv.setViewName("home");
+//		
+//		return mv;
+//	} //end home method 3 most updated
+	
+//	@PostMapping("/getdetails")
+//	public String viewDetails(@RequestParam("aid") String aid, @RequestParam("aname") String aname, 
+//			@RequestParam("lang") String lang, ModelMap modelMap){
+//		
+//		modelMap.put("aid", aid);
+//		modelMap.put("aname", aname);
+//		modelMap.put("lang", lang);
+//		
+//		return "answers";
+//		
+//		
+//	}
+	
+	
+	
+	@PostMapping("/getdetails")
+	public ModelAndView getdetails(@RequestParam int aid ){
+		
+		ModelAndView mv = new ModelAndView ("retrieve");
+		Student student = repo.findById(aid).orElse(null);
+		
+		mv.addObject(student);
+		return mv;
+		
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+//	public String home(@RequestParam("name") String name, HttpSession session) {
+//				
+//		System.out.println("Hello " + name);
+//		session.setAttribute("name", name);
+//		
+//		return "home";
+//	} //end home method 2
+	
+	
+//	public String home(HttpServletRequest req, HttpServletResponse res) {
+//		
+//		HttpSession session = req.getSession();
+//		
+//		String name =  req.getParameter("name");
+//		System.out.println("Hello " + name);
+//		session.setAttribute("name", name);
+//		
+//		return "home";
+//		
+//	}// end home method version 1
+
+	
+	
+}// end HomeController class
