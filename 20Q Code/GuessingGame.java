@@ -195,8 +195,10 @@ public class GuessingGame implements Serializable
   }
 
   /*
-  ** This method is called when the yes pointer is null.
-  ** Add a Node after the game is lost.
+  ** This method is called to update a null "yes" pointer.
+  ** This occurs when a player says "no" to the associated noun but there is NO leadingQuestion on that node
+  ** Adds a leading question that can be answered with "yes", creates a new node, and points
+  ** "yes" pointer to it.
   */
   public void addYesNode()
   {
@@ -215,7 +217,8 @@ public class GuessingGame implements Serializable
   }
 
   /*
-  ** This method is called when the no pointer is null.
+  ** This method is called to update a null "no" pointer.
+  ** This occurs when a player says "no" to a leading question and the next Node does not exist.
   ** Add a Node after the game is lost.
   */
   public void addNoNode()
