@@ -8,4 +8,4 @@
 Lesson Plan Link :
 https://docs.google.com/document/d/1ATg_wWferJz75zXXb15jwIMm_RMN5OGVYARraz88CNo/edit?usp=sharing
 
-PDF's forthcoming.
+All presentations in powerpoint format AND can be found in resources. 
