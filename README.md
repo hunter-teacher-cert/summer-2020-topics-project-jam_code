@@ -1,4 +1,4 @@
-l# Nascent Machine Learning: 20Q
+l# Nascent Machine Learning: 20Q & Spring Framework
 # Team Members
 1. Jessica Du
 2. Alex Torres
