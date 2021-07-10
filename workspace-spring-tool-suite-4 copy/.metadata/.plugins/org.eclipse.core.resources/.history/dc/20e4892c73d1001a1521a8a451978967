@@ -1,0 +1,34 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+
+
+<h1>View Alien Details</h1>
+<h2>Details as submitted: </h2>
+
+<!-- <h1>User Responses</h1> -->
+
+<%-- <p>Alien ID: ${aid} <p/>
+<p>Alien Name: ${aname} <p/>
+<p>Alien Language: ${lang} <p/> --%>
+
+<form method = "post" action = "getdetails">
+
+  <label for="aid">Alien ID:</label><br>
+  <input type="number" id="aid" name="aid"><br>
+  
+  <input type = "submit" value = "Enter Data">
+  
+</form>
+
+
+
+</body>
+</html>
